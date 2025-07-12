@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Data from API</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <ul id="product-list"></ul>
+
+    <script>
+        // Fetch data from your local API
+        fetch('http://127.0.0.1:5000/api/products')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('product-list');
+                data.forEach(product => {
+                    const item = document.createElement('li');
+                    item.innerHTML = `<img src="${product["Background Image"]}" alt="Product Image" style="max-width: 200px; margin-top: 10px;"> <br> ${product["Sr No"]}: ${product["Category"]} - ${product["Sub-category"]} - $${product["Price (USD)"]}<br>${product["Description"].replace(/\n/g, '<br>')}`;
+                    list.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>
